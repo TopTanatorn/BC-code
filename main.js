@@ -1,3 +1,4 @@
+
 const SHA256 = require('crypto-js/sha256');
 
 
@@ -11,7 +12,7 @@ class Block{
     }
 
     calculateHash(){
-        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data).toString())
+        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
     }
 }
 class Blockchain{
@@ -47,5 +48,10 @@ class Blockchain{
 let topCoin = new Blockchain();
 topCoin.addBlock(new Block(1,"13/1/2022",{amout: 4}));
 topCoin.addBlock(new Block(2,"14/1/2022",{amout: 10}));
+console.log('Is blockchain vaild?'+ topCoin.isChainValid()); 
+
+topCoin.chain[1].data = {amout: 100};
+topCoin.chain[1].hash = topCoin.chain[1].calculateHash();
+
 console.log('Is blockchain vaild?'+ topCoin.isChainValid()); 
 // console.log(JSON.stringify(topCoin,null,4));
